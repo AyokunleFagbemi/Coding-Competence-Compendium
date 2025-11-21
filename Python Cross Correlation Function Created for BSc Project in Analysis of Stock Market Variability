@@ -1,0 +1,123 @@
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from scipy import signal
+ 
+# Read Excel files into pandas dataframes
+file1 = 'stock1.xlsx'
+file2 = 'stock2.xlsx'
+file3 = 'stock3.xlsx'
+file4 = 'stock4.xlsx'
+file5 = 'stock5.xlsx'
+file6 = 'stock6.xlsx'
+df1 = pd.read_excel(file1).dropna()
+df2 = pd.read_excel(file2).dropna()
+df3 = pd.read_excel(file3).dropna()
+df4 = pd.read_excel(file4).dropna()
+df5 = pd.read_excel(file5).dropna()
+df6 = pd.read_excel(file6).dropna()
+ 
+ 
+# Plotting for the first Excel file
+plt.figure(figsize=(10, 6))
+plt.plot(df1['Date'], df1['Closing Price'], label='Stock 1')
+plt.xlabel('Date')
+plt.ylabel('Stock Price')
+plt.title('Stock Prices Over Time - Stock 1')
+plt.legend()
+plt.grid(True)
+plt.show()
+ 
+# Plotting for the second Excel file
+plt.figure(figsize=(10, 6))
+plt.plot(df2['Date'], df2['Closing Price'], label='Stock 2')
+plt.xlabel('Date')
+plt.ylabel('Stock Price')
+plt.title('Stock Prices Over Time - Stock 2')
+plt.legend()
+plt.grid(True)
+plt.show()
+ 
+# Plotting for the second Excel file
+plt.figure(figsize=(10, 6))
+plt.plot(df3['Date'], df3['Closing Price'], label='Stock 3')
+plt.xlabel('Date')
+plt.ylabel('Stock Price')
+plt.title('Stock Prices Over Time - Stock 3')
+plt.legend()
+plt.grid(True)
+plt.show()
+ 
+# Plotting for the first Excel file
+plt.figure(figsize=(10, 6))
+plt.plot(df4['Date'], df4['Closing Price'], label='Stock 4')
+plt.xlabel('Date')
+plt.ylabel('Stock Price')
+plt.title('Stock Prices Over Time - Stock 4')
+plt.legend()
+plt.grid(True)
+plt.show()
+ 
+# Plotting for the second Excel file
+plt.figure(figsize=(10, 6))
+plt.plot(df5['Date'], df5['Closing Price'], label='Stock 5')
+plt.xlabel('Date')
+plt.ylabel('Stock Price')
+plt.title('Stock Prices Over Time - Stock 5')
+plt.legend()
+plt.grid(True)
+plt.show()
+ 
+# Plotting for the first Excel file
+plt.figure(figsize=(10, 6))
+plt.plot(df6['Date'], df6['Closing Price'], label='Stock 6')
+plt.xlabel('Date')
+plt.ylabel('Stock Price')
+plt.title('Stock Prices Over Time - Stock 6')
+plt.legend()
+plt.grid(True)
+plt.show()
+ 
+# Autocorrelation Function - Stock 1
+plt.figure(figsize=(10, 6))
+acf = signal.correlate(df1['Closing Price'], df1['Closing Price'], mode='same') / np.sum(df1['Closing Price'] ** 2)
+plt.plot(acf)
+plt.xlabel('Lag')
+plt.ylabel('Autocorrelation Value')
+plt.title('Autocorrelation Function - Stock 1')
+plt.grid(True)
+plt.show()
+ 
+# Cross Correlation Function - Stock 1 and Stock 2
+plt.figure(figsize=(10, 6))
+ccf = signal.correlate(df1['Closing Price'], df2['Closing Price'], mode='same') / (np.std(df1['Closing Price']) * np.std(df2['Closing Price']))
+ccf /= np.max(np.abs(ccf))  # Normalize CCF to have maximum absolute value of 1
+plt.plot(ccf)
+plt.xlabel('Lag')
+plt.ylabel('Normalized Cross-correlation Value')
+plt.title('Cross Correlation Function - Stock 1 and Stock 2')
+plt.grid(True)
+plt.show()
+ 
+# Cross Correlation Function - Stock 3 and Stock 4
+plt.figure(figsize=(10, 6))
+ccf = signal.correlate(df3['Closing Price'], df4['Closing Price'], mode='same') / (np.std(df3['Closing Price']) * np.std(df4['Closing Price']))
+ccf /= np.max(np.abs(ccf))  # Normalize CCF to have maximum absolute value of 1
+plt.plot(ccf)
+plt.xlabel('Lag')
+plt.ylabel('Normalized Cross-correlation Value')
+plt.title('Cross Correlation Function - Stock 3 and Stock 4')
+plt.grid(True)
+plt.show()
+ 
+# Cross Correlation Function - Stock 1 and Stock 2
+plt.figure(figsize=(10, 6))
+ccf = signal.correlate(df5['Closing Price'], df6['Closing Price'], mode='same') / (np.std(df5['Closing Price']) * np.std(df6['Closing Price']))
+ccf /= np.max(np.abs(ccf))  # Normalize CCF to have maximum absolute value of 1
+plt.plot(ccf)
+plt.xlabel('Lag')
+plt.ylabel('Normalized Cross-correlation Value')
+plt.title('Cross Correlation Function - Stock 5 and Stock 6')
+plt.grid(True)
+plt.show()
+ 
